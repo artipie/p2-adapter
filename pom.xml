@@ -3,9 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.artipie</groupId>
   <artifactId>p2-adapter</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <parent>
+    <groupId>com.artipie</groupId>
+    <artifactId>ppom</artifactId>
+    <version>0.5.1</version>
+  </parent>
+  <name>p2-adapter</name>
   <properties>
     <qulice.license>${project.basedir}/LICENSE.header</qulice.license>
   </properties>
