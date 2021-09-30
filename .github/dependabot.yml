@@ -15,4 +15,4 @@ updates:
     reviewers:
       - "genryxy"
     schedule:
-      interval: "daily"
+      interval: "weekly"
