@@ -22,9 +22,6 @@ the following structure:
 ```
 (repository root) 
 | 
-|-- p2.index
-|-- compositeContent.xml
-|-- compositeArtifacts.xml
 |-+ releases
 | |-- p2.index
 | |-- compositeContent.xml
@@ -35,15 +32,16 @@ the following structure:
 | | |-+ plugins
 | | | |-- **
 | | |-- p2.index
-| | |-- content.xml / content.jar
-| | |-- artifacts.xml / artifacts.jar
+| | |-- content.xml / content.jar (e.g. zipped content.xml)
+| | |-- artifacts.xml / artifacts.jar (e.g. zipped artifacts.xml)
 | |-+ ...
 |-+ updates
 | | ... similar to the folder `releases`
 ```  
 
-`p2.index` -- description of index file is available [here](https://wiki.eclipse.org/Equinox/p2/p2_index)  
-Feature archives -- description of archives which are located in `features` folder [docs](https://help.eclipse.org/latest/topic/org.eclipse.platform.doc.isv/guide/product_def_feature.htm?cp=2_0_21_1)
+- `p2.index` -- description of index file is available [here](https://wiki.eclipse.org/Equinox/p2/p2_index)  
+- Feature archives -- description of archives which are located in `features` folder [docs](https://help.eclipse.org/latest/topic/org.eclipse.platform.doc.isv/guide/product_def_feature.htm?cp=2_0_21_1)
+These files contain the `feature.xml` file inside.
 
 ## [Sample metadata](https://wiki.eclipse.org/Equinox/p2/Composite_Repositories_(new))  
 
@@ -58,8 +56,8 @@ File `compositeContent.xml`:
     <property name='p2.timestamp' value='1243822502499'/>
   </properties>
   <children size='2'>
-    <child location='childOne'/>
-    <child location='childTwo'/>
+    <child location='3.14.10.v20210917-1938'/>
+    <child location='4.11.5.v20210930-1251'/>
   </children>
 </repository>
 ```
@@ -75,10 +73,55 @@ File: `compositeArtifacts.xml`:
     <property name='p2.timestamp' value='1243822502440'/>
   </properties>
   <children size='2'>
-    <child location='childOne'/>
-    <child location='childTwo'/>
+    <child location='3.14.10.v20210917-1938'/>
+    <child location='4.11.5.v20210930-1251'/>
   </children>
-</repository
+</repository>
+```  
+
+#### Simpe Metadata Repository
+File `content.xml`:
+```xml
+<?xml version='1.0' encoding='UTF-8'?>
+<?metadataRepository version='1.2.0'?>
+<repository name='' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
+  <properties size='1'>
+    <property name='p2.timestamp' value='1614818273187'/>
+  </properties>
+  <units size='19'>
+    <unit id='org.junit' version='4.13.0.v20200204-1500' singleton='false' generation='2'>
+      ...
+    </unit>
+    ...
+  </units>
+</repository>
+```
+
+#### Simple Artifact Repository
+File `artifact.xml` contains information about `.jar` files 
+in the subfolders of the current directory. An example of such file:
+```xml
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1614818273187'/>
+    <property name='publishPackFilesAsSiblings' value='true'/>
+  </properties>
+  ...
+  <artifacts size='17'>
+    <artifact classifier='osgi.bundle' id='org.junit.jupiter.api' version='5.7.1.v20210222-1948'>
+      <properties size='5'>
+        <property name='download.size' value='204027'/>
+        <property name='artifact.size' value='204027'/>
+        <property name='download.md5' value='f827b34590464f21f09fc18bedb4b8c6'/>
+        <property name='download.checksum.md5' value='f827b34590464f21f09fc18bedb4b8c6'/>
+        <property name='download.checksum.sha-256' value='3cb3ad7afb0d0d6f30ee1bcc043675b163d81612edd286a28429e5762413d72b'/>
+      </properties>
+    </artifact>
+    ...
+  </artifacts>
+</repository>
 ```
 
 ## How to use Artipie P2 SDK
