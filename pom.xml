@@ -29,7 +29,7 @@ SOFTWARE.
   <parent>
     <groupId>com.artipie</groupId>
     <artifactId>ppom</artifactId>
-    <version>0.5.1</version>
+    <version>v1.1.3</version>
   </parent>
   <name>p2-adapter</name>
   <properties>
